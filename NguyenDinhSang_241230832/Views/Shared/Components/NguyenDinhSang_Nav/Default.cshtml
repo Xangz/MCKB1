@@ -1,0 +1,14 @@
+﻿@model IEnumerable<NguyenDinhSang_241230832.Models.LoaiTaiSan>
+
+<ul class="menu">
+    <li class="active"><a href="/" class="nav-item-filter" data-maloai="0" data-tenloai="@ViewBag.TenSV">@ViewBag.TenSV</a></li>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <li>
+                <a href="javascript:void(0);" class="nav-item-filter" data-maloai="@item.MaLoai" data-tenloai="@item.TenLoai">@item.TenLoai</a>
+            </li>
+        }
+    }
+</ul>

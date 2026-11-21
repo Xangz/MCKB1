@@ -1,0 +1,44 @@
+@model IEnumerable<NguyenDinhSang_241230832.Models.TaiSan>
+
+<div class="container">
+    <div style="margin-bottom: 15px; text-align: right;">
+        <a asp-action="Create" style="display: inline-block; padding: 8px 16px; background-color: #0b5ed7; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">+ Thêm Tài sản mới</a>
+    </div>
+
+    <div class="section-head" style="border-left: 4px solid #f39c12; padding-left: 10px; margin-bottom: 20px;">
+        <h3 id="section-title" style="text-transform: uppercase; color: #2c3e50; margin: 0;">@ViewBag.TenSV</h3>
+    </div>
+
+    <div id="asset-container">
+        <partial name="NguyenDinhSang_MainContent" model="Model" />
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(document).on("click", ".nav-item-filter", function (e) {
+                e.preventDefault();
+
+                $(".menu li").removeClass("active");
+                $(this).closest("li").addClass("active");
+
+                var maLoai = $(this).data("maloai");
+                var tenLoai = $(this).data("tenloai");
+
+                $.ajax({
+                    url: '@Url.Action("GetTaiSanByLoai", "Home")',
+                    type: 'GET',
+                    data: { maLoai: maLoai },
+                    success: function (result) {
+                        $("#asset-container").html(result);
+                        $("#section-title").text(tenLoai);
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi tải dữ liệu tài sản!");
+                    }
+                });
+            });
+        });
+    </script>
+}
